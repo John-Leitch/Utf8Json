@@ -476,6 +476,14 @@ namespace Utf8Json
                 if (count++ != 0)
                 {
                     ReadIsValueSeparatorWithVerify();
+
+                    SkipWhiteSpace();
+                    if (IsInRange && bytes[offset] == '}')
+                    {
+                        offset += 1;
+                        return true;
+                    }
+
                 }
                 return false;
             }
@@ -503,6 +511,11 @@ namespace Utf8Json
                 else
                 {
                     ReadIsValueSeparatorWithVerify();
+
+                    if (ReadIsEndObject())
+                    {
+                        return false;
+                    }
                 }
             }
 
